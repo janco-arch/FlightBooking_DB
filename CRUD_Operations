@@ -1,1 +1,67 @@
+create database TaskManager;
+use TaskManager;
 
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    FullName VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL
+    
+);
+
+
+CREATE TABLE Tasks (
+    TaskID INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(200) NOT NULL,
+    Description TEXT,
+    AssignedTo INT,
+    DueDate DATE,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (AssignedTo) REFERENCES Users(UserID) ON DELETE SET NULL
+);
+
+
+CREATE TABLE Projects (
+    ProjectID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(150) NOT NULL,
+    Description TEXT,
+    StartDate DATE,
+    EndDate DATE,
+    OwnerID INT NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (OwnerID) REFERENCES Users(UserID) ON DELETE CASCADE
+);
+
+
+
+
+const express = require('express');
+const mysql = require('mysql');
+
+const app = express();
+const port = 3000;
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+});
+
+
+const connection = mysql.createConnection({
+    connectionLimit: 10,
+    host : 'localhost',
+    user : 'root',
+    password : 'ro',
+    database : 'TaskManager' 
+});
+
+
+// create a new user 
+app.post('/users', (req, res) => {
+    const { FullName, Email} = req.body;
+    connection.query('INSERT INTO users (FullName, Email) VALUES (?, ?)', [FullName, Email], (error, results) => {
+        if (err) throw err;
+        res.send('User created successfully');
+    });
+
+});
+
+      
