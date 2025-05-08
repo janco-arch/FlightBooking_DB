@@ -4,6 +4,10 @@
 ## Overview
 FlightBookingDB is a relational database system designed for managing flight bookings, passengers, payments, and airline schedules efficiently. It ensures seamless data handling for users, flight operations, reservations, and payments.
 
+## ERD
+![Entity-Relationship Diagram](Diagram.drawio.png)
+
+
 ## Database Schema
 The database consists of the following structured tables:
 - **Users**: Stores user details and their role in the system.
