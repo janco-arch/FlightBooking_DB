@@ -7,7 +7,7 @@ FullName varchar(255) not null,
 Email varchar(100) unique not null,
 PhoneNumber int,
 PasswordHash varchar(255) not null,
-userType enum("Passenger", "Admin", "Agent")
+UserType enum("Passenger", "Admin", "Agent")
 );
 
 
@@ -27,7 +27,7 @@ ArrivalAirport varchar(100) not null,
 DepartureTime datetime not null,
 ArrivalTime datetime not null,
 AvailableSeats int not null,
-status enum("Scheduled", "Delayed", "Cancelled", "Completed") not null
+Status enum("Scheduled", "Delayed", "Cancelled", "Completed") not null
 );
 
 
